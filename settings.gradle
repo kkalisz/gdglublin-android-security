@@ -1,1 +1,1 @@
-include ':memoryTamper'
+include ':memoryTamper', ':securepreferences'
