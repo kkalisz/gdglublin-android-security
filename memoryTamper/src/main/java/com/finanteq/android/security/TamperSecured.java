@@ -3,7 +3,7 @@ package com.finanteq.android.security;
 import java.util.Arrays;
 
 /**
- * Copyright (C) 20015 Finanteq.
+ * Copyright (C) 2015-2016 Finanteq.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
