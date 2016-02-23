@@ -20,39 +20,28 @@ import java.util.Arrays;
 
 /**
  * Proof of concept for class that helps protect against memory tampering
- * @param <V>
  */
-public class TamperSecured<V>
-{
+public class TamperSecured {
     private byte[] hash = new byte[0];
+    private long value;
 
-    private V value;
-
-    public TamperSecured(V value) {
-        setValue(value);
+    public TamperSecured(long value) {
+        this.value = value;
+        hash = Sha256Utils.digest(value);
     }
 
-    public TamperSecured()
-    {
-        this(null);
-    }
-
-    public V getValue() {
+    public long getValue() {
         validateValue();
         return value;
     }
 
     private void validateValue() {
-        if (!Arrays.equals(hash, Sha256Utils.digest(value))) {
-            throw new IllegalStateException("Memory tampered");
-        }
+        if (!Arrays.equals(hash, Sha256Utils.digest(value))) throw new IllegalStateException("Memory tampered");
     }
 
-    public void setValue(V value) {
+    public void setValue(long value) {
         validateValue();
         hash = Sha256Utils.digest(value);
         this.value = value;
     }
-
-
 }

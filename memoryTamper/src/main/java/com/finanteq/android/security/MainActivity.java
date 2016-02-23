@@ -30,15 +30,27 @@ public class MainActivity extends AppCompatActivity {
 
     private Random random = new Random(System.currentTimeMillis());
 
-    private FloatingActionButton fabLife;
-    private FloatingActionButton fabMana;
-
-    private int lifeCounter = 0;
-    private TamperSecured<Integer> manaCounter = new TamperSecured<>(0);
+    private long lifeCounter = 0;
+    private TamperSecured manaCounter = new TamperSecured(0);
 
     private TextView manaCounterView;
     private TextView lifeCounterView;
 
+    private void increaseLife() {
+        long newLifeValue = lifeCounter +random.nextInt(MAX_STATISTIC_PROGRESS);
+        lifeCounter = newLifeValue;
+        lifeCounterView.setText("Life: " + lifeCounter);
+    }
+
+    private void increaseMana() {
+        long newManaValue = manaCounter.getValue() + random.nextInt(MAX_STATISTIC_PROGRESS);
+        manaCounter.setValue(newManaValue);
+        manaCounterView.setText("Mana: " + manaCounter.getValue());
+    }
+
+    private FloatingActionButton fabLife;
+
+    private FloatingActionButton fabMana;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,18 +74,14 @@ public class MainActivity extends AppCompatActivity {
         fabLife.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int newLifeValue = random.nextInt(MAX_STATISTIC_PROGRESS);
-                lifeCounter += newLifeValue;
-                lifeCounterView.setText("Life: " + lifeCounter);
+                increaseLife();
             }
         });
 
         fabMana.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int newManaValue = manaCounter.getValue() + random.nextInt(MAX_STATISTIC_PROGRESS);
-                manaCounter.setValue(newManaValue);
-                manaCounterView.setText("Mana: " + manaCounter.getValue());
+                increaseMana();
 
             }
         });
