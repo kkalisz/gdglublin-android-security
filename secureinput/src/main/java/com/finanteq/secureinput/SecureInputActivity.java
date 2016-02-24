@@ -1,17 +1,13 @@
 package com.finanteq.secureinput;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputFilter;
 import android.text.InputType;
-import android.view.View;
 import android.widget.EditText;
 
-import com.finanteq.datatypes.SecureCharSequence;
-
-import eu.eleader.android.finance.forms.items.SecureInputFilter;
+import com.finanteq.secureinput.password.SecureInputFilter;
 
 /**
  * Copyright (C) 2015-2016 Finanteq.
@@ -38,7 +34,6 @@ public class SecureInputActivity extends AppCompatActivity {
 
     private Beacon<SecureCharSequence> secureString = new Beacon<>(new SecureCharSequence(WALLY));
 
-
     private EditText standardInput;
 
     private EditText secureCharSequenceInput;
@@ -47,11 +42,11 @@ public class SecureInputActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_secure_input);
-        setUpStandardInput();
-
-        setUpSecureInput();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        setUpStandardInput();
+        setUpSecureInput();
     }
 
     private void setUpSecureInput() {
@@ -59,12 +54,15 @@ public class SecureInputActivity extends AppCompatActivity {
         SecureInputFilter secureInputFilter = new SecureInputFilter();
         secureCharSequenceInput.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD | InputType.TYPE_CLASS_TEXT);
         secureCharSequenceInput.setFilters(new InputFilter[]{secureInputFilter});
-        secureInputFilter.getSecureCharSequence();
+
+        //secureInputFilter.getSecureCharSequence();
     }
 
     private void setUpStandardInput() {
         standardInput = (EditText) findViewById(R.id.standard_password_input);
         standardInput.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD | InputType.TYPE_CLASS_TEXT);
+
+        // standardInput.getText();;
     }
 
 }
